@@ -157,3 +157,4 @@ View detailed traces and performance metrics in your Arize dashboard to identify
 - **Backend**: FastAPI, LangGraph, LangChain, Groq, LiteLLM
 - **Observability**: Arize, OpenInference, OpenTelemetry
 - **Infrastructure**: Docker, Docker Compose
+# ai-trip-planner
