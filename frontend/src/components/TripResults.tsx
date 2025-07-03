@@ -67,7 +67,8 @@ const TripResults: React.FC<TripResultsProps> = ({ response, onNewTrip }) => {
       <Paper
         sx={{
           p: 3,
-          bgcolor: 'grey.50',
+          bgcolor: 'background.paper',
+          color: 'text.primary',
           maxHeight: '600px',
           overflow: 'auto',
           '& h1, & h2, & h3': {

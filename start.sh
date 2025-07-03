@@ -13,12 +13,21 @@ fi
 # Start backend in background
 echo "📡 Starting backend server..."
 cd backend
-python main.py &
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload &
 BACKEND_PID=$!
 echo "Backend started with PID: $BACKEND_PID"
 
 # Wait a moment for backend to start
 sleep 3
+
+# Kill any process running on port 3000 (React frontend)
+PORT=3000
+PID_TO_KILL=$(lsof -ti :$PORT)
+if [ ! -z "$PID_TO_KILL" ]; then
+    echo "🛑 Port $PORT is in use by PID $PID_TO_KILL. Killing it..."
+    kill $PID_TO_KILL
+    sleep 2
+fi
 
 # Start frontend
 echo "🎨 Starting frontend..."

@@ -13,37 +13,40 @@ import {
   CardContent,
   Chip
 } from '@mui/material';
-import { Flight, TravelExplore } from '@mui/icons-material';
+import { Flight, TravelExplore, Brightness4, Brightness7 } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
 import TripPlannerForm from './components/TripPlannerForm';
 import TripResults from './components/TripResults';
 import { TripRequest, TripResponse } from './types/trip';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-    background: {
-      default: '#f5f5f5',
-    },
-  },
-  typography: {
-    h3: {
-      fontWeight: 600,
-    },
-    h5: {
-      fontWeight: 500,
-    },
-  },
-});
 
 function App() {
   const [tripResponse, setTripResponse] = useState<TripResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const theme = React.useMemo(() => createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+      primary: {
+        main: '#1976d2',
+      },
+      secondary: {
+        main: '#dc004e',
+      },
+      background: {
+        default: darkMode ? '#121212' : '#f5f5f5',
+      },
+    },
+    typography: {
+      h3: {
+        fontWeight: 600,
+      },
+      h5: {
+        fontWeight: 500,
+      },
+    },
+  }), [darkMode]);
 
   const handlePlanTrip = async (tripRequest: TripRequest) => {
     setLoading(true);
@@ -88,6 +91,9 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               AI Trip Planner
             </Typography>
+            <IconButton sx={{ ml: 1 }} onClick={() => setDarkMode((prev) => !prev)} color="inherit" aria-label="toggle dark mode">
+              {darkMode ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
             <Flight />
           </Toolbar>
         </AppBar>
